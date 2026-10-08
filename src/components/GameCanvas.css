@@ -1,0 +1,16 @@
+.game-canvas {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  /* Prevent pull-to-refresh / scroll on iOS during gameplay */
+  touch-action: none;
+  -webkit-overflow-scrolling: none;
+  overscroll-behavior: none;
+}
+
+/* Phaser injects a canvas — make it fill the container */
+.game-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
