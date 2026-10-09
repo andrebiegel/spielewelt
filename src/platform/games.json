@@ -1,0 +1,16 @@
+[
+  {
+    "id": "super-jumper",
+    "title": "Super Jumper",
+    "subtitle": "Mario Jump & Run Clone",
+    "description": "Spring durch 3 einzigartige Level, sammle Münzen und meistere Plattformen. Steuerung per Tastatur oder Touch.",
+    "icon": "🍄",
+    "color": "#e63946",
+    "accentColor": "#FFD700",
+    "tags": ["Jump & Run", "Plattformer", "PWA"],
+    "players": "1 Spieler",
+    "engine": "Phaser 4",
+    "version": "1.0.0",
+    "component": "super-jumper"
+  }
+]

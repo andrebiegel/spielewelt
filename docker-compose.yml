@@ -1,11 +1,11 @@
 services:
-  super-jumper:
+  spielewelt:
     build:
       context: .
       dockerfile: Dockerfile
       target: runner
-    image: super-jumper:latest
-    container_name: super-jumper
+    image: spielewelt:latest
+    container_name: spielewelt
     restart: unless-stopped
     ports:
       - "3000:80"

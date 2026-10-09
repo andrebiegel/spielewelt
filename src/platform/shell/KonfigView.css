@@ -1,0 +1,302 @@
+/* Overlay — identisch zu InfoView, rechtsbündig unter Navbar */
+.konfig-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-top: 56px;
+  padding-right: 16px;
+  z-index: 200;
+  animation: kfgFadeIn 0.15s ease;
+}
+
+@keyframes kfgFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Panel */
+.konfig-panel {
+  background: #1a1a2e;
+  border: 2px solid #e63946;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  animation: kfgSlideDown 0.18s ease;
+  overflow: hidden;
+}
+
+@keyframes kfgSlideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.konfig-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #e63946;
+  box-shadow: 0 2px 0 #c0392b;
+}
+
+.konfig-panel__icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.konfig-panel__title {
+  font-family: 'Arial Black', Impact, sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  color: #FFD700;
+  text-shadow: 1px 1px 0 #4a2c0a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.konfig-panel__subtitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.konfig-panel__close {
+  margin-left: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.konfig-panel__close:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Section */
+.konfig-section {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.konfig-section__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #FFD700;
+  margin: 0;
+}
+
+.konfig-section__desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Beispiel-Tabelle */
+.konfig-examples {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.konfig-examples__title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.konfig-examples__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.konfig-examples__table td {
+  padding: 4px 6px;
+  vertical-align: middle;
+}
+
+.konfig-examples__env {
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  padding-right: 12px !important;
+  width: 120px;
+}
+
+.konfig-examples__table code {
+  font-family: 'Consolas', 'Fira Mono', monospace;
+  font-size: 11px;
+  color: #a8d8ea;
+}
+
+.konfig-examples__hint {
+  font-size: 11px;
+  color: rgba(255, 215, 0, 0.65);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.konfig-examples__hint code {
+  font-family: 'Consolas', 'Fira Mono', monospace;
+  color: #FFD700;
+}
+
+/* Field */
+.konfig-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.konfig-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.konfig-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: #fff;
+  font-family: 'Consolas', 'Fira Mono', monospace;
+  font-size: 12px;
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.konfig-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.konfig-input:focus {
+  border-color: #3a86ff;
+}
+
+.konfig-input--error {
+  border-color: #e63946;
+}
+
+.konfig-error {
+  font-size: 11px;
+  color: #ff6b6b;
+  margin: 0;
+}
+
+/* Meta-Zeile: aktive URL + Standard-Badge */
+.konfig-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.konfig-meta__label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+.konfig-meta__value {
+  font-family: 'Consolas', 'Fira Mono', monospace;
+  font-size: 11px;
+  color: #a8d8ea;
+  word-break: break-all;
+}
+
+.konfig-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 215, 0, 0.15);
+  color: #FFD700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.konfig-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.konfig-btn {
+  border: none;
+  border-radius: 6px;
+  font-family: 'Arial Black', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.konfig-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.konfig-btn--secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.konfig-btn--secondary:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.konfig-btn--primary {
+  background: #e63946;
+  color: #fff;
+}
+
+.konfig-btn--primary:hover {
+  background: #c0392b;
+}
+
+.konfig-btn--saved {
+  background: #2d9e2d;
+}
+
+/* Footer */
+.konfig-panel__footer {
+  padding: 12px 20px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
