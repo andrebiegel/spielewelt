@@ -1,0 +1,249 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://spielewelt/level.schema.json",
+  "title": "Super Jumper Level",
+  "description": "Konfigurationsdatei für ein Super Jumper Level. Vollständige Feldreferenz: SCHEMA.md",
+  "type": "object",
+  "required": ["id", "name", "subtitle", "locked", "world", "physics", "player", "platforms", "coins", "enemies", "goal"],
+  "additionalProperties": false,
+
+  "properties": {
+
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 99,
+      "description": "Eindeutige Level-ID. Bestimmt die Sortierreihenfolge in der Level-Auswahl."
+    },
+
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "description": "Anzeigename auf der Level-Karte und im HUD."
+    },
+
+    "subtitle": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "description": "Kurze Stimmungsbeschreibung unter dem Level-Namen."
+    },
+
+    "locked": {
+      "type": "boolean",
+      "description": "true = Schloss-Icon, nicht spielbar. false = spielbar."
+    },
+
+    "world": {
+      "type": "object",
+      "required": ["width", "height", "bgColor", "groundColor", "platformColor", "cloudCount", "starCount"],
+      "additionalProperties": false,
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 800,
+          "maximum": 9999,
+          "description": "Weltbreite in Pixeln. Empfohlen: Vielfaches von 64."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 400,
+          "maximum": 2000,
+          "description": "Welthöhe in Pixeln. Standard: 600."
+        },
+        "bgColor": {
+          "type": "string",
+          "pattern": "^0x[0-9a-fA-F]{6}$",
+          "description": "Hintergrundfarbe als Hex-String, z. B. \"0x5c94fc\"."
+        },
+        "groundColor": {
+          "type": "string",
+          "pattern": "^0x[0-9a-fA-F]{6}$",
+          "description": "Tint-Farbe der Boden-Kacheln."
+        },
+        "platformColor": {
+          "type": "string",
+          "pattern": "^0x[0-9a-fA-F]{6}$",
+          "description": "Fallback-Farbe für Plattformen (wird ignoriert wenn type gesetzt)."
+        },
+        "cloudCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 40,
+          "description": "Anzahl Wolken. 0 wenn starCount > 0."
+        },
+        "starCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200,
+          "description": "Anzahl Sterne für Nacht-Level. 0 wenn cloudCount > 0."
+        }
+      }
+    },
+
+    "physics": {
+      "type": "object",
+      "required": ["gravity", "playerSpeed", "jumpPower"],
+      "additionalProperties": false,
+      "properties": {
+        "gravity": {
+          "type": "number",
+          "minimum": 200,
+          "maximum": 1200,
+          "description": "Schwerkraft in px/s². Standard: 600."
+        },
+        "playerSpeed": {
+          "type": "number",
+          "minimum": 80,
+          "maximum": 500,
+          "description": "Laufgeschwindigkeit in px/s. Standard: 220."
+        },
+        "jumpPower": {
+          "type": "number",
+          "minimum": 200,
+          "maximum": 800,
+          "description": "Sprungimpuls in px/s. Standard: 480."
+        }
+      }
+    },
+
+    "player": {
+      "type": "object",
+      "required": ["startX", "startY", "lives"],
+      "additionalProperties": false,
+      "properties": {
+        "startX": {
+          "type": "number",
+          "minimum": 32,
+          "description": "X-Startposition des Spielers (Mittelpunkt)."
+        },
+        "startY": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Y-Startposition des Spielers (Mittelpunkt)."
+        },
+        "lives": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9,
+          "description": "Anzahl Startleben. Standard: 3."
+        }
+      }
+    },
+
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Mindestens eine Plattform erforderlich.",
+      "items": {
+        "type": "object",
+        "required": ["x", "y", "tiles"],
+        "additionalProperties": false,
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "description": "X-Position der linken Kante der ersten Kachel."
+          },
+          "y": {
+            "type": "number",
+            "minimum": 32,
+            "description": "Y-Position der Oberkante der Plattform."
+          },
+          "tiles": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "description": "Anzahl 64px-Kacheln. 1 = 64px breit, 4 = 256px breit."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["grass", "stone", "wood", "ice"],
+            "description": "Optionaler Plattform-Typ. Standard: grass."
+          }
+        }
+      }
+    },
+
+    "coins": {
+      "type": "array",
+      "description": "Sammelbare Münzen. Darf leer sein.",
+      "items": {
+        "type": "object",
+        "required": ["x", "y"],
+        "additionalProperties": false,
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "description": "X-Mittelpunkt der Münze."
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Y-Mittelpunkt der Münze. Empfohlen: platform.y - 30."
+          }
+        }
+      }
+    },
+
+    "enemies": {
+      "type": "array",
+      "description": "Gegner die patrouillieren. Darf leer sein.",
+      "items": {
+        "type": "object",
+        "required": ["x", "y", "patrolLeft", "patrolRight", "speed"],
+        "additionalProperties": false,
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "description": "X-Startposition. Muss zwischen patrolLeft und patrolRight liegen."
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Y-Mittelpunkt. Auf Plattform: platform.y - 16."
+          },
+          "patrolLeft": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Linke Umkehrgrenze in Weltpixeln."
+          },
+          "patrolRight": {
+            "type": "number",
+            "minimum": 1,
+            "description": "Rechte Umkehrgrenze. Muss > patrolLeft sein."
+          },
+          "speed": {
+            "type": "number",
+            "minimum": 20,
+            "maximum": 300,
+            "description": "Patrouilliergeschwindigkeit in px/s. Standard: 60–100."
+          }
+        }
+      }
+    },
+
+    "goal": {
+      "type": "object",
+      "required": ["x", "y"],
+      "additionalProperties": false,
+      "description": "Schatztruhe — Levelziel. Berührung = Level geschafft.",
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 20,
+          "description": "X-Mittelpunkt der Truhe. Typisch: world.width - 100."
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Y-Mittelpunkt. Boden: world.height - 63. Plattform: platform.y - 18."
+        }
+      }
+    }
+
+  }
+}

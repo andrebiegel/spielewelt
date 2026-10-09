@@ -35,7 +35,7 @@
     { "x": 2100, "y": 350, "tiles": 5, "type": "grass"  },
     { "x": 2400, "y": 280, "tiles": 4, "type": "wood"   },
     { "x": 2700, "y": 200, "tiles": 3, "type": "stone"  },
-    { "x": 3000, "y": 320, "tiles": 4, "type": "ice"    }
+    { "x": 2950, "y": 320, "tiles": 3, "type": "ice"    }
   ],
 
   "coins": [

@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "validate:levels": "node scripts/validate-levels.mjs",
+    "prebuild": "node scripts/validate-levels.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -17,6 +19,7 @@
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.1",
+    "ajv": "^8.20.0",
     "sharp": "^0.35.5",
     "typescript": "^5.5.3",
     "vite": "^5.4.1",
