@@ -15,8 +15,16 @@ if (!localStorage.getItem(LS_KEY)) {
   localStorage.setItem(LS_KEY, installUrl)
 }
 
-createRoot(document.getElementById('root')!).render(
+const root = createRoot(document.getElementById('root')!)
+root.render(
   <StrictMode>
     <App />
   </StrictMode>
 )
+
+// Ladebildschirm ausblenden sobald React gerendert hat
+const loader = document.getElementById('app-loading')
+if (loader) {
+  loader.classList.add('hidden')
+  loader.addEventListener('transitionend', () => loader.remove(), { once: true })
+}

@@ -19,17 +19,27 @@ const appDeps: DepEntry[] = [
   ...Object.keys(pkg.devDependencies ?? {}).map((name) => ({ name, version: resolvedVersion(name), type: 'build'   as const })),
 ]
 
-// On GitHub Pages the app lives at /<repo-name>/
-// GITHUB_REPOSITORY is set automatically by Actions: "owner/repo"
-const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
-const base = repo ? `/${repo}/` : '/'
+// GitHub Pages base-Pfad:
+//   - Normales Repo (owner/repo-name):      base = /repo-name/
+//   - User/Org Pages (owner/owner.github.io): base = /   ← kein Unterverzeichnis!
+//   - Lokal (kein GITHUB_REPOSITORY):        base = /
+//
+// GITHUB_REPOSITORY wird von Actions automatisch gesetzt: "owner/repo"
+const ghRepo   = process.env.GITHUB_REPOSITORY          // z. B. "andrebiegel/super-jumper"
+const owner    = ghRepo?.split('/')[0] ?? ''             // "andrebiegel"
+const repoName = ghRepo?.split('/')[1] ?? ''             // "super-jumper"
 
-// Default Update-URL:
-//   - GitHub Pages Build:  https://<owner>.github.io/<repo>/
-//   - Lokaler Dev-Build:   http://localhost:4173/
-//   - Überschreibbar per UI → localStorage('update-url')
-const defaultUpdateUrl = repo
-  ? `https://${process.env.GITHUB_REPOSITORY?.split('/')[0]}.github.io/${repo}/`
+// User/Org Pages erkennen: Repo-Name ist "<owner>.github.io"
+const isUserPages = repoName.toLowerCase() === `${owner.toLowerCase()}.github.io`
+
+// Bei User Pages liegt die App direkt auf /  (kein Unterverzeichnis)
+const base = ghRepo && !isUserPages ? `/${repoName}/` : '/'
+
+// Default Update-URL
+const defaultUpdateUrl = ghRepo
+  ? isUserPages
+    ? `https://${owner}.github.io/`
+    : `https://${owner}.github.io/${repoName}/`
   : 'http://localhost:4173/'
 
 export default defineConfig({
